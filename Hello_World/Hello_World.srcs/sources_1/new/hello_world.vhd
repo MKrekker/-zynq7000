@@ -20,13 +20,13 @@ begin
             if rising_edge(clk_i)then
                 counter <= counter + 1;
                 
-                if(counter = 12000000)then
-                    led     <= '1';
+                if(counter > 12000000)then
+                    led     <= not led;
                     counter <= (others => '0');
                 end if;
-                led_blink <= led;
+                
             end if;
-            
+            led_blink <= led;
             
             
         end process;
