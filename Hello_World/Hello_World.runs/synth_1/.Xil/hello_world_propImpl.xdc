@@ -1,0 +1,5 @@
+set_property SRC_FILE_INFO {cfile:/home/krekker/zynq7000/Hello_World/Hello_World.srcs/constr_hello/new/hello_world.xdc rfile:../../../Hello_World.srcs/constr_hello/new/hello_world.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:3 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN H16 [get_ports clk_i]
+set_property src_info {type:XDC file:1 line:4 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN H17 [get_ports led_blink]
