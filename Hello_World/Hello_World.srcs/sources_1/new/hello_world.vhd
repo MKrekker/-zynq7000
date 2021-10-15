@@ -10,14 +10,10 @@ end hello_world;
 
 architecture Behavioral of hello_world is
 
-signal counter          : std_logic_vector(31 downto 0);
-signal led              : std_logic;
+signal counter          : std_logic_vector(31 downto 0):= (others => '0');
+signal led              : std_logic := '0';
 
 begin
-
-    counter  <= (others => '0');
-    led      <= '0';
-    
     process(clk_i)
         begin
         

@@ -1,7 +1,7 @@
 Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2019.1.3 (lin64) Build 2644227 Wed Sep  4 09:44:18 MDT 2019
-| Date             : Fri Oct 15 19:02:36 2021
+| Date             : Fri Oct 15 19:32:39 2021
 | Host             : ls12-nvm-oma1 running 64-bit Debian GNU/Linux 10 (buster)
 | Command          : report_power -file hello_world_power_routed.rpt -pb hello_world_power_summary_routed.pb -rpx hello_world_power_routed.rpx
 | Design           : hello_world
@@ -30,15 +30,15 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.103        |
+| Total On-Chip Power (W)  | 0.251        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.000        |
-| Device Static (W)        | 0.103        |
+| Dynamic (W)              | 0.146        |
+| Device Static (W)        | 0.105        |
 | Effective TJA (C/W)      | 11.5         |
-| Max Ambient (C)          | 83.8         |
-| Junction Temperature (C) | 26.2         |
-| Confidence Level         | High         |
+| Max Ambient (C)          | 82.1         |
+| Junction Temperature (C) | 27.9         |
+| Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
 | Design Nets Matched      | NA           |
@@ -49,15 +49,20 @@ Table of Contents
 1.1 On-Chip Components
 ----------------------
 
-+--------------+-----------+----------+-----------+-----------------+
-| On-Chip      | Power (W) | Used     | Available | Utilization (%) |
-+--------------+-----------+----------+-----------+-----------------+
-| Slice Logic  |     0.000 |        1 |       --- |             --- |
-|   Others     |     0.000 |        1 |       --- |             --- |
-| I/O          |     0.000 |        1 |       125 |            0.80 |
-| Static Power |     0.103 |          |           |                 |
-| Total        |     0.103 |          |           |                 |
-+--------------+-----------+----------+-----------+-----------------+
++----------------+-----------+----------+-----------+-----------------+
+| On-Chip        | Power (W) | Used     | Available | Utilization (%) |
++----------------+-----------+----------+-----------+-----------------+
+| Slice Logic    |     0.061 |       52 |       --- |             --- |
+|   LUT as Logic |     0.025 |        8 |     53200 |            0.02 |
+|   CARRY4       |     0.017 |        8 |     13300 |            0.06 |
+|   Register     |     0.013 |       33 |    106400 |            0.03 |
+|   BUFG         |     0.006 |        1 |        32 |            3.13 |
+|   Others       |     0.000 |        2 |       --- |             --- |
+| Signals        |     0.081 |       49 |       --- |             --- |
+| I/O            |     0.004 |        2 |       125 |            1.60 |
+| Static Power   |     0.105 |          |           |                 |
+| Total          |     0.251 |          |           |                 |
++----------------+-----------+----------+-----------+-----------------+
 
 
 1.2 Power Supply Summary
@@ -66,8 +71,8 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.007 |       0.000 |      0.007 |
-| Vccaux    |       1.800 |     0.010 |       0.000 |      0.010 |
+| Vccint    |       1.000 |     0.154 |       0.146 |      0.008 |
+| Vccaux    |       1.800 |     0.011 |       0.000 |      0.011 |
 | Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |
@@ -79,7 +84,7 @@ Table of Contents
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |
 | MGTVccaux |       1.800 |     0.000 |       0.000 |      0.000 |
-| Vccpint   |       1.000 |     0.016 |       0.000 |      0.016 |
+| Vccpint   |       1.000 |     0.017 |       0.000 |      0.017 |
 | Vccpaux   |       1.800 |     0.010 |       0.000 |      0.010 |
 | Vccpll    |       1.800 |     0.003 |       0.000 |      0.003 |
 | Vcco_ddr  |       1.500 |     0.000 |       0.000 |      0.000 |
@@ -92,17 +97,17 @@ Table of Contents
 1.3 Confidence Level
 --------------------
 
-+-----------------------------+------------+------------------------------------------------+--------+
-| User Input Data             | Confidence | Details                                        | Action |
-+-----------------------------+------------+------------------------------------------------+--------+
-| Design implementation state | High       | Design is routed                               |        |
-| Clock nodes activity        | High       | User specified more than 95% of clocks         |        |
-| I/O nodes activity          | High       | User specified more than 95% of inputs         |        |
-| Internal nodes activity     | High       | User specified more than 25% of internal nodes |        |
-| Device models               | High       | Device models are Production                   |        |
-|                             |            |                                                |        |
-| Overall confidence level    | High       |                                                |        |
-+-----------------------------+------------+------------------------------------------------+--------+
++-----------------------------+------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+| User Input Data             | Confidence | Details                                                | Action                                                                                                             |
++-----------------------------+------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
+| Design implementation state | High       | Design is routed                                       |                                                                                                                    |
+| Clock nodes activity        | Low        | User specified less than 75% of clocks                 | Provide missing clock activity with a constraint file, simulation results or by editing the "By Clock Domain" view |
+| I/O nodes activity          | Low        | More than 75% of inputs are missing user specification | Provide missing input activity with simulation results or by editing the "By Resource Type -> I/Os" view           |
+| Internal nodes activity     | Medium     | User specified less than 25% of internal nodes         | Provide missing internal nodes activity with simulation results or by editing the "By Resource Type" views         |
+| Device models               | High       | Device models are Production                           |                                                                                                                    |
+|                             |            |                                                        |                                                                                                                    |
+| Overall confidence level    | Low        |                                                        |                                                                                                                    |
++-----------------------------+------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------+
 
 
 2. Settings
@@ -137,8 +142,10 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+------+-----------+
-| Name | Power (W) |
-+------+-----------+
++-------------+-----------+
+| Name        | Power (W) |
++-------------+-----------+
+| hello_world |     0.146 |
++-------------+-----------+
 
 
