@@ -24,10 +24,10 @@ begin
                     led     <= '1';
                     counter <= (others => '0');
                 end if;
-                
+                led_blink <= led;
             end if;
             
-            led_blink <= led;
+            
             
         end process;
      
